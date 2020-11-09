@@ -39,7 +39,7 @@ let RedCommand : Type =
 let SetRedCommand : Type =
     {
         led : Natural,
-        intensity : Integer,
+        intensity : Natural,
     }
 let GreenCommand : Type =
     {
@@ -49,7 +49,7 @@ let GreenCommand : Type =
 let SetGreenCommand : Type =
     {
         led : Natural,
-        intensity : Integer,
+        intensity : Natural,
     }
 let BlueCommand : Type =
     {
@@ -59,7 +59,7 @@ let BlueCommand : Type =
 let SetBlueCommand : Type =
     {
         led : Natural,
-        intensity : Integer,
+        intensity : Natural,
     }
 let SetBrightnessCommand : Type =
     {
@@ -96,11 +96,11 @@ let Command : Type =
 let TypedCommand : Type = { instr: Text, val: Command }
 let SetColor : Natural -> Color -> TypedCommand = \(led : Natural) ->  \(color : Color) -> { instr = "SetColor", val = Command.SetColor { led = led, color = color }}
 let Red : Natural -> Integer -> TypedCommand = \(led : Natural) -> \(delta : Integer) -> { instr = "Red", val = Command.Red { led = led, delta =  delta }}
-let SetRed : Natural -> Integer -> TypedCommand = \(led : Natural) -> \(intensity : Integer) -> { instr = "SetRed", val = Command.SetRed { led = led, intensity = intensity }}
+let SetRed : Natural -> Natural -> TypedCommand = \(led : Natural) -> \(intensity : Natural) -> { instr = "SetRed", val = Command.SetRed { led = led, intensity = intensity }}
 let Green : Natural -> Integer -> TypedCommand = \(led : Natural) -> \(delta : Integer) -> { instr = "Green", val = Command.Green { led = led, delta =  delta }}
-let SetRed : Natural -> Integer -> TypedCommand = \(led : Natural) -> \(intensity : Integer) -> { instr = "SetGreen", val = Command.SeGreen { led = led, intensity = intensity }}
+let SetGreen : Natural -> Natural -> TypedCommand = \(led : Natural) -> \(intensity : Natural) -> { instr = "SetGreen", val = Command.SetGreen { led = led, intensity = intensity }}
 let Blue : Natural -> Integer -> TypedCommand = \(led : Natural) -> \(delta : Integer) -> { instr = "Blue", val = Command.Blue { led = led, delta =  delta }}
-let SetBlue : Natural -> Integer -> TypedCommand = \(led : Natural) -> \(intensity : Integer) -> { instr = "SetBlue", val = Command.SetBlue { led = led, intensity = intensity }}
+let SetBlue : Natural -> Natural -> TypedCommand = \(led : Natural) -> \(intensity : Natural) -> { instr = "SetBlue", val = Command.SetBlue { led = led, intensity = intensity }}
 let SetBrightness : Natural -> Double -> TypedCommand = \(led : Natural) ->  \(brightness : Double) -> { instr = "SetBrightness", val = Command.SetBrightness { led = led, brightness = brightness }}
 let Brightness : Natural -> Double -> TypedCommand = \(led : Natural) -> \(delta : Double) -> { instr = "Brightness", val = Command.Brightness { led = led, delta =  delta }}
 let On : Natural -> TypedCommand = \(led : Natural) ->  { instr = "On", val = Command.On { led = led }}
@@ -128,6 +128,7 @@ in {
         Blue = Blue,
         SetBlue = SetBlue,
         SetBrightness = SetBrightness,
+        Brightness = Brightness,
         Delay = Delay,
         MapLeds = MapLeds,
         seq = seq,
