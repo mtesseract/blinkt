@@ -79,6 +79,7 @@ let OffCommand : Type =
     {
         led : Natural,
     }
+let ResetCommand : Type = {}
 let Command : Type =
     < Delay : DelayCommand 
     | On : OnCommand
@@ -92,6 +93,7 @@ let Command : Type =
     | SetGreen : SetGreenCommand
     | Blue : BlueCommand
     | SetBlue : SetBlueCommand
+    | Reset : ResetCommand
     >
 let TypedCommand : Type = { instr: Text, val: Command }
 let SetColor : Natural -> Color -> TypedCommand = \(led : Natural) ->  \(color : Color) -> { instr = "SetColor", val = Command.SetColor { led = led, color = color }}
@@ -109,6 +111,7 @@ let Delay : Natural -> TypedCommand = \(millis : Natural) -> { instr = "Delay", 
 let allLeds : List Natural = [0, 1, 2, 3, 4, 5, 6, 7]
 let MapLeds : (Natural -> TypedCommand) -> (List TypedCommand) = \(f : Natural -> TypedCommand) -> List/map Natural TypedCommand f allLeds
 let MapSeq :  forall (a : Type) -> Natural -> (Natural -> a) -> List a = \(a : Type) -> \(n : Natural) -> \(f : (Natural -> a)) -> List/map Natural a f (seq n)
+let Reset = { instr = "Reset", val = Command.Reset }
 in {
         Duration = Duration,
         DelayCommand = DelayCommand,
@@ -134,5 +137,6 @@ in {
         seq = seq,
         flatten = flatten,
         MapSeq = MapSeq,
+        Reset = Reset,
     }
 
